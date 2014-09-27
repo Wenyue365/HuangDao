@@ -49,17 +49,12 @@ namespace HuangDao
             closeDB(); // Release the MySQL connection resource
         }
 
-        public static string getConnectionStr(){
-            return connStringBuilder(db_host, db_port, db_name, db_user, db_pass, db_charset);
-        }
-
-        public static string connStringBuilder(string host, int port, string dbname, string username, string password, string charset)
+        static string connStringBuilder(string host, int port, string dbname, string username, string password, string charset)
         {
             string cs = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};CharacterSet={5};Pooling=True;",
                 host, port, dbname, username, password, charset);
             return cs;
         }
-
         private bool initDb()
         {
             bool result = true;
@@ -94,7 +89,6 @@ namespace HuangDao
 
             return result;
         }
-
         public void closeDB()
         {
             if (m_connSql != null)
@@ -344,7 +338,7 @@ namespace HuangDao
             return hld;
         }
 
-        public static void Writelog(string log_str)
+        static void Writelog(string log_str)
         {
             try
             {
