@@ -1,0 +1,116 @@
+.cls_solardate {
+	clear:both;
+    padding-left: 3px;
+    margin-bottom:3px;
+    line-height:1em;
+	color:#f99478;
+}
+
+.cls_solardate select {
+	color:#f99478;
+	border-color:#f99478;
+    border-width:1px;
+	padding-left:3px;
+}
+
+.cls_lunardate{
+	clear:both;
+    padding-left: 3px;
+    margin-bottom:3px;
+    line-height:1em;
+	color:#f99478;
+}
+
+.cls_lunardate span{
+	display:inline-block;
+	padding:4px 0px 4px 0px;
+	margin:3px;
+}
+
+.cls_lunardate span:hover{
+    background-color: #feecec;
+    color:white;
+}
+
+#hlNongLi_AC {
+	color:#77ade3;
+	font-weight:normal;
+	font-size:0.6em;
+}
+
+#hlNongLi_AC:hover{
+    background-color: #dee6ee;
+    color:white;
+}
+
+/* -----  default.css -------*/
+.content_list li {
+    clear: both;
+    display: inline-block;
+    margin-bottom: 11px;
+}
+
+.cls_headerctrl {
+   height:60px;
+   padding:3px;
+   font-size:2em;
+   font-weight:bold;
+   margin-bottom:10px;
+   margin-left:5px;
+   display:inline-block;
+
+}
+.cls_headerctrl span {
+    display:inline-block;
+    float:left;
+    padding-top:8px;
+    padding-left:8px;
+    padding-right:8px;
+    padding-bottom:3px;
+    margin-bottom:8px;
+}
+.cls_currdatectrl{
+    margin-left:8px;
+    height:40px;
+    display:inline-block;
+}
+.cls_currdatectrl span{
+    display:inline-block;
+    background-color:#fff0c2;
+}
+
+#btn_hl{
+    background-color: #ffcc33;
+    font-size:1em;
+}
+#btn_hl:hover {
+    background-color: rgb(255, 255, 0);
+}
+#btn_yi{
+    display:inline-block;
+}
+#btn_ji{
+    display:inline-block;
+}
+
+#btn_leftarrow {
+background-image: url("./images/hd_pics.png");
+background-position: 0px 0px;
+background-repeat: no-repeat;
+background-color: transparent;
+color: transparent;
+}
+#btn_rightarrow{
+background-image: url("./images/hd_pics.png");
+background-position: -97px 0px;
+background-repeat: no-repeat;
+background-color: transparent;
+color: transparent;
+}
+#lkbtn_solardate{
+    border-radius:8px;
+    padding-left:12px;
+    padding-top:7px;
+    padding-bottom:5px;
+    font-family:Consolas;
+}
