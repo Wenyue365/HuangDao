@@ -130,6 +130,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="log\UserQueryLog.cs" />
     <Compile Include="Love.aspx.cs">
       <DependentUpon>Love.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,7 +188,6 @@
     <Compile Include="SinaHuangDaoBook.cs" />
     <Compile Include="SOEHelper.cs" />
     <Compile Include="TXHuangDaoBook.cs" />
-    <Compile Include="ZUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
