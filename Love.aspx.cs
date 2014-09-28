@@ -19,19 +19,6 @@ namespace HuangDao
             this.Title = SEOHelper.getPageTile("姻缘");
             SEOHelper.initMeta(this.Keywords, this.Description);
 
-            string qs_fn = Request.QueryString["fn"];
-            if (qs_fn == "number")
-            {
-                defaultSearchType.Value = "0";
-            }
-            else if (qs_fn == "name")
-            {
-                defaultSearchType.Value = "1";
-            }
-            else if (qs_fn == "marrage")
-            {
-                defaultSearchType.Value = "2";
-            }
 
             string ipAddress = Page.Request.UserHostAddress; //取到用户的IP地址
             UserIP.Value = ipAddress;

@@ -64,7 +64,11 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="BestToDo.aspx" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="cnzz.cs" />
     <Content Include="css\base.css" />
     <Content Include="css\BestToDo.css" />
@@ -158,6 +162,7 @@
       <DependentUpon>DisplayLog.aspx</DependentUpon>
     </Compile>
     <Compile Include="HtmlModule.cs" />
+    <Compile Include="Modules\UrlRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HuangdaoWS.asmx.cs">
       <DependentUpon>HuangdaoWS.asmx</DependentUpon>
@@ -184,13 +189,12 @@
     <Compile Include="SinaHuangDaoBook.cs" />
     <Compile Include="SOEHelper.cs" />
     <Compile Include="TXHuangDaoBook.cs" />
-    <Compile Include="ZUtilities.cs" />
+    <Compile Include="Modules\ZUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
-    <Folder Include="Modules\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\HuangDao.pubxml" />
