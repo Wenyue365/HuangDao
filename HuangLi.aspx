@@ -387,6 +387,17 @@ color: transparent;
             return document.getElementById(id);
         }
 
+        function formatDateString(strDate) {
+            if (strDate == null) return strDate;
+            var elm = strDate.split('-');
+            for (var i = 0; i < elm.length; i++) {
+                if (elm[i].length < 2) {
+                    elm[i] = '0' + elm[i];
+                }
+            }
+            return (elm.join('-'));
+        }
+
         // 初始化当前日期按钮 
         function initCurrDate()
         {
@@ -396,8 +407,18 @@ color: transparent;
             QueryString.Initial();
             strDate = QueryString.GetValue("hld");
 
+            // Try the get date from url
+            if (strDate == null) {
+                ptnDate = /\d{4}\-\d{1,2}\-\d{1,2}/;
+                var grp = document.URL.match(ptnDate);
+                if (grp != null) {
+                    strDate = grp[0];
+                }
+            }
+
             if (strDate != null)
             {
+                strDate = formatDateString(strDate);
                 var tmpDate = new Date(strDate);
                 if (!isNaN(tmpDate)) {
                     now = tmpDate;

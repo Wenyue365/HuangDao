@@ -24,12 +24,8 @@
         <asp:HiddenField id="UserIP" runat="server"/>
         <asp:HiddenField id="currentDate" runat="server" />
         <asp:HiddenField id="defaultSearchType" runat="server" />
-        <div id="TitleToolBar" class="title_bar_panel">
-            <div id="divUserIcon" class="user_icon"><img src="./images/user_default_male.png" /></div>
-            <div id="divUserInfo" class="user_info"><span>生辰</span><span>2000年3月3日</span></div>
-        </div>
 
-        <div id="divDivineInputBox">
+        <div id="divDivineInputBox" class="div_input_panel">
             <div class="input_panel">
             <div class="panel_man">
                <!--男方姓名-->

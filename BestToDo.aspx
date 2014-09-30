@@ -32,8 +32,9 @@
                 </div>
                 <div id="divSearchBar" class="search_bar">
                     <div class="input_search_box">
-                        <input type="search" id="inputSearch" onfocus="onfocus_inputCtrl(this)" onblur="onblur_InputCtrl(this)" />
+                        <input type="search" id="inputSearch"  class="search_input_box"/>
                     </div>
+                     <div id="searchPromptBox" class="search_prompt_box"></div>
                     <div id="divEventTypeBar" class="event_type_bar">
                         <div id="btnYiSearch" class="search_btn yi" onclick="onclick_btnSearchYi()"><a>宜</a></div>
                         <div id="btnJiSearch" class="search_btn ji" onclick="onclick_btnSearchJi()"><a>忌</a></div>
@@ -323,6 +324,25 @@
             var btnGroup = new ButtonGroup();
             btnGroup.addBtn(new ButtonState($E("btnYiSearch"), 1));
             btnGroup.addBtn(new ButtonState($E("btnJiSearch"), 0));
+
+            // 初始化宜忌事件输入框及提示框
+            initSearchBox("inputSearch", dfkw.value, "inputbox_focus", "inputbox_blur");
+            initPromptBox("searchPromptBox", "inputSearch");
+
+            function onclick_PromptEvent() {
+               
+                if (getSearchType() == "yi") {
+                    onclick_btnSearchYi();
+                }
+                else {
+                    onclick_btnSearchJi();
+                }
+            }
+
+            var jsnKws = g_yijiEvents;
+            if (jsnKws) {
+                fillSearchPromptData("searchPromptBox", "inputSearch", jsnKws, onclick_PromptEvent);
+            }
         }
 
         /*---------- MAIN ---------*/

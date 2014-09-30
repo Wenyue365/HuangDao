@@ -15,7 +15,6 @@ namespace HuangDao
         string qs_date;
         protected void Page_Load(object sender, EventArgs e)
         {
-
             // 网站访问情况统计
             CNZZ cnzz = new CNZZ();
             cnzz.setup(this.Page);
@@ -54,8 +53,6 @@ namespace HuangDao
             xYiTime.InnerText = getYiTime(hdSvcs, td);
             xJiTime.InnerText = getJiTime(hdSvcs, td);
         }
-
-
 
         private string getJiTime(HDWebservices hdSvcs, DateTime curr_dt)
         {

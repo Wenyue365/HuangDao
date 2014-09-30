@@ -10,6 +10,97 @@ function $E(objId) {
     }
 }
 
+//-----------------------------------------------------
+// 代码段： 实现输宜、忌事件的提示 
+//-----------------------------------------------------
+
+// ------------------------------------------------------
+// 函数：创建输入提示框, 向提示框填入数据, 并设置事件响应函数
+// pmtBoxId : string, 提示框HTML元素的 id 
+// schBoxId : string, 与提示框绑定的输入框的 id
+// jsnKws : string[], 提示框中需要显示的宜、忌事件数组
+//
+function fillSearchPromptData(pmtBoxId, schBoxId, jsnKws, eventClick) {
+    var prnNode = $E(pmtBoxId);
+
+    // remove all child-nodes
+    while (pmtBoxId.firstChild) {
+        prnNode.removeChild(pmtBoxId.firstChild);
+    }
+
+    var span = null;
+
+    // onclick 事件处理（函数）对象
+    var onclickYijiEventHandler = function (ev) {
+        var shb = $E(schBoxId);
+        shb.value = this.innerHTML;
+        // 隐藏提示框
+        showPromptBox(pmtBoxId, false);
+    }
+
+    var len = jsnKws.length;
+    len = len > 20 ? 20 : len;
+
+    for (var i = 1; i < len; i++) {
+        span = document.createElement("span");
+        span.innerHTML = jsnKws[i];
+        span.addEventListener("click", onclickYijiEventHandler);
+        
+        if (eventClick != null){
+            span.addEventListener("click", eventClick);
+        }
+        prnNode.appendChild(span);
+    }
+}
+
+// 函数：初始化输入框的外观及行为
+function initSearchBox(schBoxId, defKw, clsFocus, clsBlur) {
+    initInputBoxCtrl(schBoxId, defKw, clsFocus, clsBlur);
+}
+
+// 函数：用于获取元素的 CSS 的 padding, margin 等属性值
+function getCssValue(elm, propName) {
+    var v = window.getComputedStyle(elm, null).getPropertyValue(propName);
+    return parseInt(v);
+}
+
+// 函数 : 初始化提示框的外观及行为
+function initPromptBox(pmtBoxId, schBoxId) {
+    var pmb = $E(pmtBoxId);
+    var shb = $E(schBoxId);
+    // 调整提示框的宽度，使之与绑定的输入框宽度一致
+    pmb.style.left = shb.offsetLeft + "px";
+    pmb.style.top = (shb.offsetTop + shb.offsetHeight) + "px";
+    pmb.style.width = shb.offsetWidth - getCssValue(shb, "padding-left") - getCssValue(shb, "padding-right") - getCssValue(shb, "border-width") * 2 + 1 + "px";
+    pmb.style.display = "none"; // 初始化时不显示提示框
+
+    shb.addEventListener("blur",
+    function (e) {
+        // showPromptBox(pmtBoxId, false);
+    },
+    false);
+
+    // 当searchBox 获得焦点时，显示提示框
+    shb.addEventListener("focus",
+    function (e) {
+        showPromptBox(pmtBoxId, true);
+    },
+    false);
+}
+// 函数：显示/隐藏 提示框
+function showPromptBox(pmtBoxId, bShow) {
+    var pmb = $E(pmtBoxId);
+
+    if (bShow) {
+        pmb.style.display = "block";
+    }
+    else {
+        pmb.style.display = "none";
+    }
+}
+
+//----------------------------------------
+
 // 显示或者隐藏 loading 图标
 function showLoading(prnNode, b) {
     if (prnNode == null) {
@@ -35,6 +126,7 @@ function showLoading(prnNode, b) {
 
 //------------------------------------------------------------------------
 // 类：维护按钮的状态
+//
 function ButtonState(btnObj, st) {
     this.bindBtn = function (btnObj) {
         this._btnObj = btnObj;
@@ -61,8 +153,9 @@ function ButtonState(btnObj, st) {
     this.setBtnState(st);
 }
 
+// -----------------------------------------------------------------------
 // 类：用于维护按钮，支持按钮的互斥
-
+//
 // 静态成员变量
 ButtonGroup.prototype._btnStates = new Array();
 ButtonGroup.prototype.getButtons = function () { return ButtonGroup.prototype._btnStates; }

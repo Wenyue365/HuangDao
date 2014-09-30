@@ -301,7 +301,7 @@ namespace HuangDao
 
             try
             {
-                string cmdText = string.Format("SELECT * FROM `wy_sinahuangli`WHERE DATE_FORMAT(solarDate, '%Y/%c/%e' ) = DATE_FORMAT( '{0}', '%Y/%c/%e' )",
+                string cmdText = string.Format("SELECT * FROM wy_sinahuangli WHERE DATE_FORMAT(solarDate, '%Y/%c/%e' ) = DATE_FORMAT( '{0}', '%Y/%c/%e' )",
                     solarDate);
 
                 MySqlCommand cmdSql = new MySqlCommand(cmdText, ConnSql);
