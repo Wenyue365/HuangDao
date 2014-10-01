@@ -92,7 +92,7 @@
                 function onSuccHandle(rspData) {
                     showLoading(null, false);
 
-                    var divCalcResult = $("#divCalcResult");
+                    var divCalcResult = $E("divCalcResult");
 
                     var ulCalcResult = document.createElement("ul");
                     for (var i = 0; i < rspData.getElementsByTagName("_name").length; i++) {
@@ -108,15 +108,15 @@
                         ulCalcResult.appendChild(liCalResult);
                     }
 
-                    divCalcResult.append(ulCalcResult); // This a JQuery object !
+                    divCalcResult.appendChild(ulCalcResult); // This a JQuery object !
                 }
             }
 
             function onclick_Calc()
             {
-                var DivineTypesBar = $("#DivineTypesBar");
-                var mName = $("#manName").val();
-                var wName = $("#womanName").val();
+                var DivineTypesBar = $E("DivineTypesBar");
+                var mName = $E("manName").value;
+                var wName = $E("womanName").value;
 
                 if (true)
                 {

@@ -39,9 +39,9 @@ function fillSearchPromptData(pmtBoxId, schBoxId, jsnKws, eventClick) {
     }
 
     var len = jsnKws.length;
-    len = len > 20 ? 20 : len;
+    len = len > 24 ? 24 : len;
 
-    for (var i = 1; i < len; i++) {
+    for (var i = 0; i < len; i++) {
         span = document.createElement("span");
         span.innerHTML = jsnKws[i];
         span.addEventListener("click", onclickYijiEventHandler);
@@ -71,7 +71,8 @@ function initPromptBox(pmtBoxId, schBoxId) {
     // 调整提示框的宽度，使之与绑定的输入框宽度一致
     pmb.style.left = shb.offsetLeft + "px";
     pmb.style.top = (shb.offsetTop + shb.offsetHeight) + "px";
-    pmb.style.width = shb.offsetWidth - getCssValue(shb, "padding-left") - getCssValue(shb, "padding-right") - getCssValue(shb, "border-width") * 2 + 1 + "px";
+    // pmb.style.width = shb.offsetWidth - getCssValue(shb, "padding-left") - getCssValue(shb, "padding-right") - getCssValue(shb, "border-width") * 2 + 1 + "px";
+    pmb.style.width = "95%";
     pmb.style.display = "none"; // 初始化时不显示提示框
 
     shb.addEventListener("blur",

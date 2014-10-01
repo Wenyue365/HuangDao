@@ -297,6 +297,9 @@
                 if (expl != null) {
                     evnExpl.innerHTML = ipsh.value + "：" + expl + "。";
                 }
+                else {
+                    evnExpl.innerHTML = "";
+                }
             }
 
             // 加载缺省的黄历数据（JS文件）
@@ -329,13 +332,24 @@
             initSearchBox("inputSearch", dfkw.value, "inputbox_focus", "inputbox_blur");
             initPromptBox("searchPromptBox", "inputSearch");
 
+            // 事件处理函数：用户选中提示框中的宜/忌项
             function onclick_PromptEvent() {
-               
                 if (getSearchType() == "yi") {
                     onclick_btnSearchYi();
                 }
                 else {
                     onclick_btnSearchJi();
+                }
+
+                // 显示宜忌项的解释
+                var ipsh = $E("inputSearch");
+                var yjEvn = new YijiEventExplain("g_yijiEventsExplain");
+                var expl = yjEvn.getEventExplain(ipsh.value);
+                if (expl != null) {
+                    evnExpl.innerHTML = ipsh.value + "：" + expl + "。";
+                }
+                else {
+                    evnExpl.innerHTML = "";
                 }
             }
 
