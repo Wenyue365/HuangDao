@@ -24,27 +24,34 @@ public class Global : System.Web.HttpApplication
 
     protected void Application_BeginRequest(object sender, EventArgs e)
     {
-        //HttpApplication httpApp = (HttpApplication)sender;
-        //HttpContext context = httpApp.Context;
+        HttpApplication httpApp = (HttpApplication)sender;
+        HttpContext context = httpApp.Context;
 
-        //string filePath = context.Request.FilePath;
-        //string fileExtension = VirtualPathUtility.GetExtension(filePath);
-        //if (fileExtension.Equals("")) // Handle request without file-extension
-        //{
-        //    string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
-        //    if (trgUrl != null)
-        //    {
-        //        httpApp.Context.RewritePath(trgUrl);
-        //    }
-        //}
-        //else if (fileExtension.Equals(".html"))
-        //{
-        //    string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
-        //    if (trgUrl != null)
-        //    {
-        //        httpApp.Context.RewritePath(trgUrl);
-        //    }
-        //}
+        string filePath = context.Request.FilePath;
+        string fileExtension = VirtualPathUtility.GetExtension(filePath);
+        if (fileExtension.Equals("")) // Handle request without file-extension
+        {
+            string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
+            if (trgUrl != null)
+            {
+                httpApp.Context.RewritePath(trgUrl);
+            }
+        }
+        else if (fileExtension.Equals(".aspx"))
+        {
+            if (filePath.IndexOf("default.aspx") >= 0) // 对于 default.aspx 的页面请求，重写到 huangli.aspx 页面 
+            {
+                httpApp.Context.RewritePath("huangli.aspx");
+            }
+            else
+            {
+                string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
+                if (trgUrl != null)
+                {
+                    httpApp.Context.RewritePath(trgUrl);
+                }
+            }
+        }
     }
 
     protected void Application_AuthenticateRequest(object sender, EventArgs e)

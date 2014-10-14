@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Services;
-using AstroSpider;
 using System.IO;
-using System.Diagnostics;
 using System.Net;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Xml.Serialization;
-using System.Text;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.Text;
+using System.Web;
+using System.Web.Services;
 
 using LaoHuangLi;
 using DataParsers;
+using AstroSpider;
 
 
 
@@ -191,6 +191,15 @@ namespace HuangDao
         {
             string page_url = string.Format("http://laohuangli.net/chepaihaoma.aspx?s={0}", carNum);
 
+            // Save user query info
+            HdDBHelper dbHelper = new HdDBHelper();
+            UserQuery uq = new UserQuery();
+            uq.queryString = carNum;
+            uq.userIp = HttpContext.Current.Request.UserHostAddress;
+            uq.userId = HttpContext.Current.Request.UserAgent.Substring(0, 64);
+            uq.url = page_url;
+            dbHelper.saveToDbAsync(uq);
+
             CalcNumberPage calcPage = new CalcNumberPage(page_url);
             PageBase pg = new PageBase();
 
@@ -203,6 +212,17 @@ namespace HuangDao
         public PageBase calcName(string firstName, string lastName)
         {
             const string page_url = "http://laohuangli.net/xingmingceshi.aspx?s1={0}&s2={1}";
+
+            // Save user query info
+            HdDBHelper dbHelper = new HdDBHelper();
+            UserQuery uq = new UserQuery();
+            uq.queryString = firstName + "-" + lastName;
+            uq.userIp = HttpContext.Current.Request.UserHostAddress;
+            uq.userId = HttpContext.Current.Request.UserAgent.Substring(0, 64);
+            uq.url = page_url;
+            dbHelper.saveToDbAsync(uq);
+
+
             string fName = HttpUtility.UrlEncode(firstName, Encoding.GetEncoding("GB2312"));
             string lName = HttpUtility.UrlEncode(lastName, Encoding.GetEncoding("GB2312"));
             string[] prms;
@@ -380,11 +400,21 @@ namespace HuangDao
         {
             const string base_url = "http://www.sheup.com/xingmingyuanfen.php";
 
+            // Save user query info
+            HdDBHelper dbHelper = new HdDBHelper();
+            UserQuery uq = new UserQuery();
+            uq.queryString = manName + ":" + womanName;
+            uq.userIp = HttpContext.Current.Request.UserHostAddress;
+            uq.userId = HttpContext.Current.Request.UserAgent.Substring(0,64);
+            uq.url = base_url;
+
+            dbHelper.saveToDbAsync(uq);
+
             PostData postData = new PostData();
             postData.Add("namea", manName);
             postData.Add("nameb", womanName);
             postData.Add("Submit", "%D0%D5%C3%FB%D4%B5%B7%D6%C5%E4%B6%D4");
- 
+            
             SheupCoupleCalcPage sheupPage = new SheupCoupleCalcPage(base_url, postData);
 
             PageBase pg = new PageBase();

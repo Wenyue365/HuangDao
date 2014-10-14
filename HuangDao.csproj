@@ -70,7 +70,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="cnzz.cs" />
     <Content Include="css\base.css" />
     <Content Include="css\BestToDo.css" />
     <Content Include="css\default.css" />
@@ -78,13 +77,13 @@
     <Content Include="css\HuangLi2.css" />
     <Content Include="css\love.css" />
     <Content Include="css\Settings.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="log\HuangliMgr.aspx" />
+    <Content Include="log\UserLogin.aspx" />
     <Content Include="Love.aspx" />
     <Content Include="HuangLi.aspx" />
     <Content Include="Divine.aspx" />
     <Content Include="css\divine.css" />
     <Content Include="jslib\calendar.js" />
-    <Content Include="ChooseDates.aspx" />
     <Content Include="css\chooseDates.css" />
     <Content Include="jslib\Solar2Lunar-mini.js" />
     <Content Include="css\huangli.css" />
@@ -116,20 +115,20 @@
     <Compile Include="BestToDo.aspx.designer.cs">
       <DependentUpon>BestToDo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ChooseDates.aspx.cs">
-      <DependentUpon>ChooseDates.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ChooseDates.aspx.designer.cs">
-      <DependentUpon>ChooseDates.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DbUsers.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="log\HuangliMgr.aspx.cs">
+      <DependentUpon>HuangliMgr.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="log\HuangliMgr.aspx.designer.cs">
+      <DependentUpon>HuangliMgr.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="log\UserLogin.aspx.cs">
+      <DependentUpon>UserLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="log\UserLogin.aspx.designer.cs">
+      <DependentUpon>UserLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Love.aspx.cs">
       <DependentUpon>Love.aspx</DependentUpon>
@@ -187,7 +186,7 @@
     </Compile>
     <Compile Include="DataParser\SheupCalc.cs" />
     <Compile Include="SinaHuangDaoBook.cs" />
-    <Compile Include="SOEHelper.cs" />
+    <Compile Include="SEOHelper.cs" />
     <Compile Include="TXHuangDaoBook.cs" />
     <Compile Include="Modules\ZUtilities.cs" />
   </ItemGroup>

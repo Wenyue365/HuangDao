@@ -14,12 +14,14 @@ namespace HuangDao
 {
     public class HdDBHelper
     {
+        #region 数据库参数
         static  string db_host = "admin.yun03.yhosts.com";
         static  int db_port = 3306;
         static  string db_name = "wenyue365";
         static  string db_user = "wenyue365";
         static  string db_pass = "wenyue365$$$";
         static  string db_charset = "utf8"; // this value is query from the DB
+        #endregion 数据库参数
 
         static int m_openedCount = 0;
         string m_connString = null;
@@ -43,21 +45,11 @@ namespace HuangDao
 
             initDb(); 
         }
-
         ~HdDBHelper() // Destructors cannot be called. They are invoked automatically
         {
             closeDB(); // Release the MySQL connection resource
         }
 
-        public static string getConnectionStr(){
-            return connStringBuilder(db_host, db_port, db_name, db_user, db_pass, db_charset);
-        }
-        public static string connStringBuilder(string host, int port, string dbname, string username, string password, string charset)
-        {
-            string cs = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};CharacterSet={5};Pooling=True;",
-                host, port, dbname, username, password, charset);
-            return cs;
-        }
         private bool initDb()
         {
             bool result = true;
@@ -92,7 +84,15 @@ namespace HuangDao
 
             return result;
         }
-
+        public static string getConnectionStr(){
+            return connStringBuilder(db_host, db_port, db_name, db_user, db_pass, db_charset);
+        }
+        public static string connStringBuilder(string host, int port, string dbname, string username, string password, string charset)
+        {
+            string cs = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};CharacterSet={5};Pooling=True;",
+                host, port, dbname, username, password, charset);
+            return cs;
+        }
         public void closeDB()
         {
             if (m_connSql != null)
@@ -125,6 +125,34 @@ namespace HuangDao
 
         // 线程工作函数：保存用户访问信息到数据库
         // This thread procedure performs the task.
+
+        /// <summary>
+        /// 函数：采用异步方式保存用户访问信息（日志）
+        /// </summary>
+        /// <param name="id">用户ID，缺省为 0</param>
+        /// <param name="username">用户名， 缺省为 Visitor</param>
+        /// <param name="ip">用户发起访问的源IP 地址</param>
+        /// <param name="loc">IP 地址的归属地</param>
+        /// <returns></returns>
+        public bool saveToDbAsync(int id, string username, string ip, string loc)
+        {
+            bool result = false;
+
+            // 初始化工作函数的参数
+            UserInfo ui = new UserInfo();
+            ui.id   = id;
+            ui.name = username;
+            ui.ip   = ip;
+            ui.loc  = loc;
+
+            // 使用 ThreadPool 完成异步保存操作
+            if (ThreadPool.QueueUserWorkItem(new WaitCallback(thprocSaveIPLocation), ui))
+            {
+                result = true;
+            }
+            return result;
+        }
+
         static void thprocSaveIPLocation(Object stateInfo)
         {
             UserInfo ui = (UserInfo)stateInfo;
@@ -158,33 +186,6 @@ namespace HuangDao
             {
                 Writelog("thprocSaveIPLocation： MySqlException : " + e.Message);
             }
-        }
-
-        /// <summary>
-        /// 函数：采用异步方式保存用户访问信息（日志）
-        /// </summary>
-        /// <param name="id">用户ID，缺省为 0</param>
-        /// <param name="username">用户名， 缺省为 Visitor</param>
-        /// <param name="ip">用户发起访问的源IP 地址</param>
-        /// <param name="loc">IP 地址的归属地</param>
-        /// <returns></returns>
-        public bool saveToDbAsync(int id, string username, string ip, string loc)
-        {
-            bool result = false;
-
-            // 初始化工作函数的参数
-            UserInfo ui = new UserInfo();
-            ui.id   = id;
-            ui.name = username;
-            ui.ip   = ip;
-            ui.loc  = loc;
-
-            // 使用 ThreadPool 完成异步保存操作
-            if (ThreadPool.QueueUserWorkItem(new WaitCallback(thprocSaveIPLocation), ui))
-            {
-                result = true;
-            }
-            return result;
         }
 
         public TXHuangDaoDay selectHlData(string where_clause)
@@ -458,6 +459,50 @@ namespace HuangDao
             }
 
             return hlHour;
+        }
+
+        // 保存用户查询条件到数据库
+        public bool saveToDbAsync(UserQuery uq)
+        {
+            bool result = false;
+
+            // 使用 ThreadPool 完成异步保存操作
+            if (ThreadPool.QueueUserWorkItem(new WaitCallback(thSaveQueryWordProc), uq))
+            {
+                result = true;
+            }
+            return result;
+        }
+        // 线程函数：保存用户查询条件到数据库
+        private void thSaveQueryWordProc(object state)
+        {
+            Mutex mutex = new Mutex(false, "thSaveQueryWordProc_mutex"); // 创建一个互斥对象，但不立即获得它
+
+            UserQuery uq = (UserQuery)state;
+
+            int savedCount = 0;
+            string cmdText = string.Format("INSERT INTO wy_userquerylog (userId,userIp,url,queryString) VALUES ('{0}','{1}','{2}','{3}')",
+                uq.userId, uq.userIp, uq.url, uq.queryString);
+
+            mutex.WaitOne();
+
+            try
+            {
+                MySqlCommand cmdSql = new MySqlCommand(cmdText, this.ConnSql);
+                cmdSql.CommandType = CommandType.Text;
+
+                if (cmdSql.ExecuteNonQuery() == 1)
+                {
+                    savedCount++;
+                }
+            }
+            catch(Exception ex)
+            {
+                Writelog("thSaveQueryWordProc: " + ex.Message);
+            }
+            
+            mutex.ReleaseMutex();
+
         }
     }
 }

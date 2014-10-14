@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta content="width=device-width,user-scalable=no" name="viewport" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta property="wb:webmaster" content="68bd9bcdb2c1e7d0" />
+    <meta name="360-site-verification" content="a0583e054aa7cf6a9b1cc365210ff7e4" />
+    <meta name="shenma-site-verification" content="dedaac9ab6b26c675eb0b5b2a25a97fd" />
+    <meta name="sogou_site_verification" content="eIN222vJXk"/>
     <title>问曰 - 黄历</title>
     <script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#49864d04284941d7c34281555b923388"></script><script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({ app_id: '55224d2be49bce6da1435b51' });</script>
     <script type="text/javascript" src="Scripts/jquery-1.7.1.min.js"></script>
@@ -159,7 +163,7 @@ color: transparent;
                 <div class="lunar_month_day"> <span id="xLunarDate" runat="server"></span></div>
                 <div class="ancient_ymdt">
                     <!--古历的年月日时及时宜、时忌-->
-                    <div class="img_div"><img class="zodiac" alt="马年" src="./images/zodiac_horse.png" /></div>
+                    <%--<div class="img_div"><img class="zodiac" alt="马年" src="./images/zodiac_horse.png" /></div>--%>
                     <div class="ancient_year_month">
                         <div class="ancient_year"><span id="xAncientYear" runat="server"></span></div>
                         <div class="ancient_month"><span id="xAncientMonth" runat="server"></span></div>

@@ -10,6 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="width=device-width,user-scalable=no" name="viewport" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta property="wb:webmaster" content="68bd9bcdb2c1e7d0" />
+<meta name="360-site-verification" content="a0583e054aa7cf6a9b1cc365210ff7e4" />
+<meta name="shenma-site-verification" content="dedaac9ab6b26c675eb0b5b2a25a97fd" />
+<meta name="sogou_site_verification" content="eIN222vJXk"/>
     <link href="css/base.css" rel="stylesheet" />
     <link href="css/frame.css" rel="stylesheet" />
     <link href="css/love.css" rel="stylesheet" />

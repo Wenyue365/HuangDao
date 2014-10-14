@@ -10,7 +10,7 @@ namespace HuangDao.Modules
 #if DEBUG
         public static string s_baseUrl = "~/";
 #else
-        static string s_baseUrl = "~/huangdao/";
+        static string s_baseUrl = "~/";
 #endif
         private static string getEventName(string req)
         {
@@ -118,6 +118,9 @@ namespace HuangDao.Modules
                 case "mingli":
                 case "haoma":
                 case "number":
+                case "xingming":
+                case "chepai":
+                case "mingzi":
                 case "号码":
                 case "车牌":
                 case "手机":

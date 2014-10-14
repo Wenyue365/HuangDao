@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta content="width=device-width,user-scalable=no" name="viewport" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta property="wb:webmaster" content="68bd9bcdb2c1e7d0" />
+    <meta name="360-site-verification" content="a0583e054aa7cf6a9b1cc365210ff7e4" />
+    <meta name="shenma-site-verification" content="dedaac9ab6b26c675eb0b5b2a25a97fd" />
+    <meta name="sogou_site_verification" content="eIN222vJXk"/>
     <script src="Scripts/jquery-1.7.1.min.js"></script>
     <script src="jslib/lzclib.js"></script>
     <script src="HuangLiData/YijiEvents.js"></script>
@@ -26,13 +30,13 @@
         <div class="body_container">
             <div class="container">
                 <div id="TitleToolBar" class="title_bar_panel">
-                    <div id="divUserIcon" class="user_icon">
+                    <%--<div id="divUserIcon" class="user_icon">
                         <img src="./images/user_default_male.png" /></div>
-                    <div id="divUserInfo" class="user_info"><span>生辰</span><span>2000年3月3日</span></div>
+                    <div id="divUserInfo" class="user_info"><span>生辰</span><span>2000年3月3日</span></div>--%>
                 </div>
                 <div id="divSearchBar" class="search_bar">
                     <div class="input_search_box">
-                        <input type="search" id="inputSearch"  class="search_input_box"/>
+                        <input type="search" id="inputSearch"  class="search_input_box" readonly="readonly" />
                     </div>
                      <div id="searchPromptBox" class="search_prompt_box"></div>
                     <div id="divEventTypeBar" class="event_type_bar">

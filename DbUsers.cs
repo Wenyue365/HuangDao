@@ -96,4 +96,18 @@ namespace HuangDao
 
 
     }
+
+    public class UserQuery
+    {
+        public string userId;
+        public string userIp;
+        public string url;
+        public string queryString;
+        public DateTime queryTime;
+
+        public UserQuery()
+        {
+            this.queryTime = DateTime.Now;
+        }
+    }
 }

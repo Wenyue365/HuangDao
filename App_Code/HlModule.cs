@@ -28,27 +28,28 @@ namespace HuangDao
 
         void context_BeginRequest(object sender, EventArgs e)
         {
-            HttpApplication httpApp = (HttpApplication)sender;
-            HttpContext context = httpApp.Context;
+            //HttpApplication httpApp = (HttpApplication)sender;
+            //HttpContext context = httpApp.Context;
 
-            string filePath = context.Request.FilePath;
-            string fileExtension = VirtualPathUtility.GetExtension(filePath);
-            if (fileExtension.Equals("")) // Handle request without file-extension
-            {
-                string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
-                if (trgUrl != null)
-                {
-                    httpApp.Context.RewritePath(trgUrl);
-                }
-            }
-            else if (fileExtension.Equals(".html"))
-            {
-                string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
-                if (trgUrl != null)
-                {
-                    httpApp.Context.RewritePath(trgUrl);
-                }
-            }
+            //string filePath = context.Request.FilePath;
+            //string fileExtension = VirtualPathUtility.GetExtension(filePath);
+            //if (fileExtension.Equals("")) // Handle request without file-extension
+            //{
+            //    string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
+            //    if (trgUrl != null)
+            //    {
+            //        httpApp.Context.RewritePath(trgUrl);
+            //    }
+            //}
+            //else if (fileExtension.Equals(".html"))
+            //{
+            //    string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
+            //    if (trgUrl != null)
+            //    {
+            //        httpApp.Context.RewritePath(trgUrl);
+            //    }
+            //}
+
             //else if (fileExtension.Equals(".do"))
             //{
             //    string trgUrl = HuangDao.Modules.UrlRouter.getUrl(httpApp.Context.Request.RawUrl);
