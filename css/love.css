@@ -204,3 +204,35 @@ ul li div{
   padding:5px 12px 5px 12px;
   height: 110%;
 }
+
+.flash_couple_panel{
+  padding:5px 0px 8px 0px;
+  background-color: rgba(222,222,222,0.5);
+}
+
+.flash_couple_panel span{
+  background-color: #E9E9E9;   
+  margin: 2px 2px 2px 2px;
+  display: inline-block;
+}
+
+.flash_couple_panel span:hover{
+  background-color: #e090e0;
+  cursor:pointer;  
+}
+
+.flash_couple_panel span:first-child{
+  border-radius: 0.3em 0em 0em 0.3em;
+  padding: 0.3em 0.2em 0.2em 0.25em;
+}
+
+.flash_couple_panel span:last-child{
+  border-radius: 0em 0.3em 0.3em 0em;
+  padding: 0.3em 0.25em 0.2em 0.2em;
+}
+
+.flash_couple_panel div{
+  padding:2px 2px 2px 2px;
+  margin: 3px 3px 3px 3px;
+  display:inline-block;
+}

@@ -504,5 +504,41 @@ namespace HuangDao
             mutex.ReleaseMutex();
 
         }
+
+        internal DataSet getQueryWord(DateTime startTime, DateTime endTime)
+        {
+
+            try
+            {
+                string cmdText = string.Format(
+                    "SELECT * " +
+                    "FROM (SELECT *, Hour(STR_TO_DATE(solar_time_start, '%H:%i:%s')) AS st, " +
+                    "Hour(STR_TO_DATE(solar_time_end, '%H:%i:%s')) AS et, " +
+                    "Hour(DATE_FORMAT('{0}', '%H:%i:%s')) AS tt " +
+                    "FROM wy_laohuangli " +
+                    "WHERE STR_TO_DATE(curr_date, '%Y年%c月%e日') = DATE_FORMAT('{0}', '%Y-%m-%d') " +
+                    ") tb " +
+                    "WHERE (st <= tt AND et >= tt) OR (tt <= st and tt >= et)", startTime);
+                MySqlCommand cmdSql = new MySqlCommand(cmdText, ConnSql);
+                cmdSql.CommandType = CommandType.Text;
+
+                MySqlDataReader sqlReader = cmdSql.ExecuteReader();
+                while (sqlReader.Read()) // 读取所有记录
+                {
+                    
+                }
+                sqlReader.Close(); // 必须关闭
+                cmdSql = null;
+                sqlReader = null;
+            }
+            catch (MySqlException ex)
+            {
+
+
+                Writelog("getQueryWord : " + ex.Message);
+            }
+
+            return hlHour;
+        }
     }
 }

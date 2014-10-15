@@ -3,7 +3,6 @@ using System.Web;
 
 namespace HuangDao
 {
-    
     public class HlModule : IHttpModule
     {
         /// <summary>
@@ -68,4 +67,6 @@ namespace HuangDao
             //custom logging logic can go here
         }
     }
+
+
 }

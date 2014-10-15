@@ -78,6 +78,7 @@
     <Content Include="css\love.css" />
     <Content Include="css\Settings.css" />
     <Content Include="log\HuangliMgr.aspx" />
+    <Content Include="log\QueryData.aspx" />
     <Content Include="log\UserLogin.aspx" />
     <Content Include="Love.aspx" />
     <Content Include="HuangLi.aspx" />
@@ -123,6 +124,13 @@
     <Compile Include="log\HuangliMgr.aspx.designer.cs">
       <DependentUpon>HuangliMgr.aspx</DependentUpon>
     </Compile>
+    <Compile Include="log\QueryData.aspx.cs">
+      <DependentUpon>QueryData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="log\QueryData.aspx.designer.cs">
+      <DependentUpon>QueryData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="log\UserLogin.aspx.cs">
       <DependentUpon>UserLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -130,6 +138,7 @@
     <Compile Include="log\UserLogin.aspx.designer.cs">
       <DependentUpon>UserLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="log\UserManager.cs" />
     <Compile Include="Love.aspx.cs">
       <DependentUpon>Love.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

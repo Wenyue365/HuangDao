@@ -10,6 +10,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace HuangDao
 {
@@ -94,58 +95,81 @@ namespace HuangDao
         }
     }
 
-    class SiteMap
+    public class SiteMap
     {
+        //排除这些文件夹
+        string[] ignoredFolders ={ "App_Data", "Bin", "fckeditor", "js", "MyAdmin", "PowerChatRoom",
+                                  "config","xml","compiled","dll","css","js","txt","images","log","sql",
+                                 "debug", "backup","properties"};
+
+        string[] ignoredFileExts = {".asax",".asmx",".config",".xml",".compiled",".dll",".css",".js",
+                                       ".txt",".png",".jpg",".gif",".log",".cs", ".sql", ".gitignore", 
+                                       ".cd", ".csproj",".user"};
+
          /// <summary>
         /// 生成网站地图
         /// </summary>
         /// <returns></returns>
-        public static bool BuildSitemap()
+        public string BuildSitemap()
         {
+            bool bSucc = false;
+            string siteMapsFilePath = HttpContext.Current.Server.MapPath("~/Sitemaps.xml");
+            
+            const string baseUrl = "http://www.wenyue365.cn/huangdao";
+
             try
             {
                 string RootDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                XmlTextWriter Writer = new XmlTextWriter(HttpContext.Current.Server.MapPath("~/GoogleSitemaps.xml"), Encoding.GetEncoding("utf-8"));
+                XmlTextWriter Writer = new XmlTextWriter(siteMapsFilePath, Encoding.GetEncoding("utf-8"));
                 Writer.Formatting = Formatting.Indented;
                 Writer.WriteStartDocument();
-                Writer.WriteStartElement("urlset", "http://www.google.com/schemas/sitemap/0.84");
-                //遍历扫描网站所有文件
-                showfiles(RootDirectory, Writer);
+                Writer.WriteStartElement("urlset", "http://www.wenyue365.cn/schemas/sitemap/0.84");
+                //递归遍历扫描网站所有文件
+                this.sanFiles(RootDirectory, baseUrl, Writer);
 
                 Writer.WriteEndElement();
                 Writer.WriteEndDocument();
                 Writer.Close();
-                return true;
-
+                bSucc = true;
             }
             catch (Exception err)
             {
-                return false;
+                bSucc = false;
+                HdDBHelper.Writelog(err.Message);
             }
+
+            if (!bSucc)
+            {
+                siteMapsFilePath = null;
+            }
+
+            return siteMapsFilePath;
         }
         
         //遍历扫描网站所有文件
-        static void showfiles(string dirpath, XmlTextWriter Writer)
+        void sanFiles(string dirpath, string baseUrl, XmlTextWriter Writer)
         {
             bool IsRead = true;
-            string[] NotRead ={ "App_Data", "Bin", "fckeditor", "js", "MyAdmin", "PowerChatRoom" };//排除这些文件夹
-            foreach (string s in NotRead)
+
+            foreach (string s in ignoredFolders)
             {
                 string dirname = dirpath.Substring(dirpath.LastIndexOf(@"\") + 1);
-                if (dirname == s)
+                if (dirname.ToLower() == s.ToLower())
                 {
                     IsRead = false;
                     break;
                 }
             }
-            if (!IsRead)
-                return;
+
+            if (!IsRead) return;
 
             try
             {
                 DirectoryInfo dir = new DirectoryInfo(dirpath);
                 foreach (FileInfo f in dir.GetFiles())
                 {
+                    if (isIgnoredFile(f)) continue; // Skip ignored files
+
                     string path = dir.FullName.Replace(AppDomain.CurrentDomain.BaseDirectory, "");//文件相对目录
                     //HttpContext.Current.Response.Write(AppDomain.CurrentDomain.BaseDirectory + "**********" + dir.FullName + "<br>");
                     Writer.WriteStartElement("url");
@@ -153,7 +177,8 @@ namespace HuangDao
                     Writer.WriteStartElement("loc");
                     StringBuilder sb = new StringBuilder("/" + path + "/" + f.Name);
                     sb.Replace("//", "/").Replace(@"\", "/");
-                    Writer.WriteString(ConfigurationManager.AppSettings["WebSiteUrl"].ToString() + sb.ToString());
+                   
+                    Writer.WriteString(baseUrl + sb.ToString());
                     Writer.WriteEndElement();
 
                     Writer.WriteStartElement("lastmod");
@@ -173,10 +198,26 @@ namespace HuangDao
 
                 foreach (DirectoryInfo d in dir.GetDirectories())
                 {
-                    showfiles(d.FullName, Writer);
+                    sanFiles(d.FullName, baseUrl, Writer);
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex) {
+                HdDBHelper.Writelog(ex.Message);
+            }
+        }
+
+        private bool isIgnoredFile(FileInfo f)
+        {
+            string ext = Path.GetExtension(f.FullName);
+            foreach (string ignExt in ignoredFileExts)
+            {
+                if (ext.ToLower() == ignExt.ToLower())
+                {
+                    Debug.Write(ext + " == " + ignExt + "\n");
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -45,6 +45,7 @@
             </div>
         </div>
         <div id="divCalcResult" class="calc_result">
+        <div id="FlashCouplePanel" class="flash_couple_panel"></div>
 
         </div>
 
@@ -118,7 +119,6 @@
 
             function onclick_Calc()
             {
-                var DivineTypesBar = $E("DivineTypesBar");
                 var mName = $E("manName").value;
                 var wName = $E("womanName").value;
 
@@ -133,6 +133,15 @@
             {
                 initInputBoxCtrl("manName", "输入男方姓名");
                 initInputBoxCtrl("womanName", "输入女方姓名");
+
+                var prnNode = $E("FlashCouplePanel");
+                var fc = new FlashCoupleClass();
+                fc.showCoupleTags(prnNode, fc.loadCoupleData());
+                fc.CoupleTagClickEventHandler = function (e, mName, wName) {
+                    $E("manName").value = mName;
+                    $E("womanName").value = wName;
+                    calcCouple(mName, wName);
+                }
             }
 
             /*********************************/
